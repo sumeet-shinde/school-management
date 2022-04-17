@@ -28,7 +28,7 @@ export const AddClass = () => {
 
   return (
     <>
-      <h2>Add New Teacher</h2>
+      <h2>Add New Class</h2>
       <Button variant="contained" onClick={() => {
         navigate("/");
       }}>Home</Button><br /><br />
