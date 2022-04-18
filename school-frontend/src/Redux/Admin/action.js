@@ -11,7 +11,7 @@ export const registerUser = (Name, Email, Password) => async (dispatch) => {
   }
 
   axios
-    .post("https://school-database-server.herokuapp.com/register", {
+    .post("https://school-backend-server.herokuapp.com/register", {
       name: Name,
       email: Email,
       password: Password,
@@ -38,7 +38,7 @@ export const checkToken = (Email, Password) => async (dispatch) => {
 
   axios
     .post(
-      "https://school-database-server.herokuapp.com/login",
+      "https://school-backend-server.herokuapp.com/login",
       {
         email: Email,
         password: Password,

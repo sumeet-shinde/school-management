@@ -22,7 +22,7 @@ export const Register = () => {
       <input onChange={(e) => setName(e.target.value)} type="text" placeholder="Enter Name"/><br /><br />
       <input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter Email"/><br /><br />
       <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Enter Password"/><br /><br />
-      <Button variant="contained" onClick={handleSubmit}>Submit</Button>&nbsp;&nbsp;
+      <Button disabled={!Name || !Email || !Password} variant="contained" onClick={handleSubmit}>Submit</Button>&nbsp;&nbsp;
       <Button variant="contained" onClick={() => {
         navigate("/login");
       }}>Login</Button>

@@ -53,4 +53,42 @@ router.get("/:name", async (req, res) => {
   }
 });
 
+router.patch("/:id", async (req, res) => {
+  try {
+    const teachers = await Teacher.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    })
+      .lean()
+      .exec();
+
+    return res.send(teachers);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const teachers = await Teacher.findByIdAndDelete(req.params.id)
+      .lean()
+      .exec();
+
+    return res.send(teachers);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+});
+
+router.get("/search/:name", async (req, res) => {
+  try {
+    const teachers = await Teacher.find({ name: req.params.name })
+      .lean()
+      .exec();
+
+    res.status(200).send(teachers);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
 module.exports = router;

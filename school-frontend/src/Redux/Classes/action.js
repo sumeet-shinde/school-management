@@ -20,7 +20,7 @@ export const getClassesRequest = () => async (dispatch) => {
 
   dispatch(ClassesDataLoading());
   axios
-    .get(`https://school-database-server.herokuapp.com/teachers/${Name}`)
+    .get(`https://school-backend-server.herokuapp.com/teachers/${Name}`)
     .then(({ data }) => {
       if (data) {
         dispatch(getClassesData(data));
@@ -44,7 +44,7 @@ export const addClassesRequest =
 
     dispatch(ClassesDataLoading());
     axios
-      .post(`https://school-database-server.herokuapp.com/classes`, {
+      .post(`https://school-backend-server.herokuapp.com/classes`, {
         grade: Grade,
         section: Section,
         subject: Subject,
@@ -58,3 +58,42 @@ export const addClassesRequest =
         console.log(err);
       });
   };
+
+export const updateClassesRequest =
+  (Grade, Section, Subject, ID) => async (dispatch) => {
+    const id = JSON.parse(localStorage.getItem("classID"));
+
+    if (!Grade || !Section || !Subject || !ID) {
+      return;
+    }
+
+    dispatch(ClassesDataLoading());
+    axios
+      .patch(`https://school-backend-server.herokuapp.com/classes/${id}`, {
+        grade: Grade,
+        section: Section,
+        subject: Subject,
+        teacherID: ID,
+      })
+      .then(({ data }) => {
+        alert("Class Details Upadted");
+      })
+      .catch((err) => {
+        dispatch(ClassesDataError());
+        console.log(err);
+      });
+  };
+
+export const deleteClassesRequest = (id) => async (dispatch) => {
+  dispatch(ClassesDataLoading());
+  axios
+    .delete(`https://school-backend-server.herokuapp.com/classes/${id}`)
+    .then(({ data }) => {
+      alert("Class Details Deleted");
+      dispatch(getClassesRequest());
+    })
+    .catch((err) => {
+      dispatch(ClassesDataError());
+      console.log(err);
+    });
+};

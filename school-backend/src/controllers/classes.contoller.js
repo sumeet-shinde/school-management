@@ -65,4 +65,28 @@ router.get("/:grade", async (req, res) => {
   }
 });
 
+router.patch("/:id", async (req, res) => {
+  try {
+    const classes = await Class.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    })
+      .lean()
+      .exec();
+
+    return res.send(classes);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const classes = await Class.findByIdAndDelete(req.params.id).lean().exec();
+
+    return res.send(classes);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+});
+
 module.exports = router;
